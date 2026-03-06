@@ -1,0 +1,1913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Whitmore Groups — Business Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --dark: #0E0E0E;
+    --gold: #C9A84C;
+    --gold-light: #E8D5A3;
+    --warm: #2A1F0E;
+    --accent: #8B6914;
+    --muted: #6B6456;
+    --border: rgba(201,168,76,0.25);
+    --card-bg: rgba(255,252,245,0.6);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--dark);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.6;
+  }
+
+  header {
+    padding: 48px 60px 36px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  .logo-block h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--warm);
+    line-height: 1;
+  }
+
+  .logo-block span {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 6px;
+    display: block;
+  }
+
+  .header-meta {
+    text-align: right;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    line-height: 1.8;
+  }
+
+  .gold-line {
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    margin: 0 60px;
+  }
+
+  /* Nav tabs */
+  .tab-nav {
+    display: flex;
+    gap: 0;
+    padding: 0 60px;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    animation: fadeUp 0.9s ease forwards;
+  }
+
+  .tab-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 16px 24px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--muted);
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    margin-bottom: -1px;
+  }
+
+  .tab-btn:hover { color: var(--gold); }
+  .tab-btn.active {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+  }
+
+  /* Main content */
+  .main {
+    padding: 48px 60px;
+    max-width: 1400px;
+    animation: fadeUp 1s ease forwards;
+  }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Section titles */
+  .section-header {
+    margin-bottom: 36px;
+  }
+
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--warm);
+    line-height: 1.1;
+  }
+
+  .section-header p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 8px;
+    max-width: 600px;
+    line-height: 1.6;
+  }
+
+  /* Cards */
+  .card-grid {
+    display: grid;
+    gap: 20px;
+  }
+
+  .card-grid-2 { grid-template-columns: 1fr 1fr; }
+  .card-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .card-grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 4px 24px rgba(201,168,76,0.08);
+  }
+
+  .card-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .card-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--warm);
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .card-desc {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  .card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--warm);
+    margin-bottom: 12px;
+  }
+
+  /* Stress-test box */
+  .stress-box {
+    background: var(--warm);
+    color: var(--gold-light);
+    border-radius: 4px;
+    padding: 28px 32px;
+    margin-top: 32px;
+    border-left: 3px solid var(--gold);
+  }
+
+  .stress-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+    color: var(--gold);
+  }
+
+  .stress-item {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 14px;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    align-items: flex-start;
+  }
+
+  .stress-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    background: var(--gold);
+    color: var(--warm);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-weight: 500;
+  }
+
+  .stress-item p strong { color: var(--gold); }
+
+  .upgrade-pill {
+    background: rgba(201,168,76,0.15);
+    border: 1px solid var(--gold);
+    padding: 8px 14px;
+    border-radius: 2px;
+    font-size: 0.8rem;
+    color: var(--gold-light);
+    margin-top: 6px;
+    display: inline-block;
+  }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 32px; }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 6px;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 28px;
+    opacity: 0;
+    transform: translateX(-10px);
+    animation: slideIn 0.5s ease forwards;
+  }
+
+  .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+  .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+  .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+  .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+  .timeline-item:nth-child(5) { animation-delay: 0.5s; }
+
+  .timeline-dot {
+    position: absolute;
+    left: -28px;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--cream);
+    box-shadow: 0 0 0 1px var(--gold);
+  }
+
+  .timeline-phase {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  .timeline-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--warm);
+    font-weight: 700;
+  }
+
+  .timeline-body {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-top: 6px;
+    line-height: 1.6;
+  }
+
+  /* Checklist */
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .checklist-item:last-child { border-bottom: none; }
+
+  .check-box {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid var(--gold);
+    border-radius: 2px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .checklist-item.done .check-box {
+    background: var(--gold);
+  }
+
+  .checklist-item.done .check-box::after {
+    content: '✓';
+    font-size: 11px;
+    color: white;
+    font-weight: 700;
+  }
+
+  .checklist-item.done .check-label {
+    text-decoration: line-through;
+    opacity: 0.5;
+  }
+
+  .check-label {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--dark);
+  }
+
+  .check-label strong {
+    display: block;
+    color: var(--warm);
+    font-weight: 500;
+    margin-bottom: 2px;
+    font-size: 0.9rem;
+  }
+
+  /* Revenue table */
+  .rev-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+
+  .rev-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding: 10px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .rev-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+    color: var(--dark);
+  }
+
+  .rev-table tr:hover td { background: rgba(201,168,76,0.04); }
+
+  .rev-table tr.total td {
+    border-top: 2px solid var(--gold);
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--warm);
+    font-weight: 700;
+    background: rgba(201,168,76,0.06);
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    padding: 3px 8px;
+    border-radius: 2px;
+    display: inline-block;
+  }
+
+  .tag-green { background: rgba(80,180,80,0.12); color: #3a9a3a; }
+  .tag-amber { background: rgba(201,168,76,0.15); color: var(--accent); }
+  .tag-red { background: rgba(200,80,80,0.12); color: #c04444; }
+
+  /* Progress bar */
+  .prog-bar {
+    height: 4px;
+    background: rgba(201,168,76,0.15);
+    border-radius: 2px;
+    margin-top: 10px;
+    overflow: hidden;
+  }
+
+  .prog-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    border-radius: 2px;
+    transition: width 1s ease;
+  }
+
+  /* Script box */
+  .script-box {
+    background: var(--warm);
+    border-radius: 4px;
+    padding: 24px 28px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--gold-light);
+    line-height: 1.8;
+    border-left: 3px solid var(--gold);
+    position: relative;
+  }
+
+  .script-box::before {
+    content: 'OUTREACH SCRIPT';
+    position: absolute;
+    top: -10px;
+    left: 16px;
+    background: var(--gold);
+    color: var(--warm);
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    padding: 2px 8px;
+    font-weight: 500;
+  }
+
+  .script-placeholder { color: var(--gold); font-weight: 500; }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 36px 0;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @media (max-width: 900px) {
+    header, .tab-nav, .main { padding-left: 24px; padding-right: 24px; }
+    .card-grid-2, .card-grid-3, .card-grid-4 { grid-template-columns: 1fr; }
+    .logo-block h1 { font-size: 1.8rem; }
+  }
+
+  /* Tooltip */
+  [data-tip] { position: relative; cursor: help; }
+  [data-tip]:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--warm);
+    color: var(--gold-light);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    padding: 6px 10px;
+    border-radius: 3px;
+    white-space: nowrap;
+    z-index: 100;
+    pointer-events: none;
+    margin-bottom: 6px;
+    border: 1px solid var(--gold);
+  }
+
+  .footnote {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-block">
+    <h1>Whitmore Groups</h1>
+    <span>Business Plan — Interiors Niche · B2B Outreach</span>
+  </div>
+  <div class="header-meta">
+    <div>CLASSIFICATION: INTERNAL</div>
+    <div>PREPARED FOR: WHITMORE'S MANAGEMENT</div>
+    <div>VERSION: 1.0 · 2026</div>
+  </div>
+</header>
+<div class="gold-line"></div>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('overview')">Overview</button>
+  <button class="tab-btn" onclick="switchTab('offer')">The Offer</button>
+  <button class="tab-btn" onclick="switchTab('leads')">Lead Strategy</button>
+  <button class="tab-btn" onclick="switchTab('outreach')">Outreach Engine</button>
+  <button class="tab-btn" onclick="switchTab('revenue')">Revenue Model</button>
+  <button class="tab-btn" onclick="switchTab('execution')">Execution Checklist</button>
+  <button class="tab-btn" onclick="switchTab('stress')">Stress Test</button>
+  <button class="tab-btn" onclick="switchTab('coldcall')">Cold Call Script</button>
+</nav>
+
+<div class="main">
+
+  <!-- OVERVIEW -->
+  <div id="tab-overview" class="tab-content active">
+    <div class="section-header">
+      <h2>The Big Picture</h2>
+      <p>Whitmore Groups runs B2B outreach campaigns on behalf of interior designers — finding qualified prospects, building lists, and converting cold contacts into booked consultations.</p>
+    </div>
+
+    <div class="card-grid card-grid-4">
+      <div class="card">
+        <div class="card-label">Business Model</div>
+        <div class="card-value" style="font-size:1.3rem">Done-For-You Outreach</div>
+        <div class="card-desc">We don't sell leads. We sell booked appointments and pipeline.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Target Client</div>
+        <div class="card-value" style="font-size:1.3rem">Interior Designers</div>
+        <div class="card-desc">Independent studios, boutique firms, residential & commercial specialists.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Our Priority</div>
+        <div class="card-value" style="font-size:1.1rem; line-height:1.3">Client First</div>
+        <div class="card-desc">You're not a number in a queue. As a boutique startup, every client gets our full attention — something the big firms simply can't offer.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Halal Compliance</div>
+        <div class="card-value" style="font-size:1.3rem">100%</div>
+        <div class="card-desc">No interest-bearing financing. All revenue streams halal by design.</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-header">
+      <h2>Problem → Solution</h2>
+    </div>
+
+    <div class="card-grid card-grid-2">
+      <div class="card">
+        <div class="card-label">The Problem</div>
+        <h3>Interior Designers Can't Find Clients Consistently</h3>
+        <div class="card-desc" style="margin-top:0">
+          Most interior designers rely on referrals and Instagram. When referrals dry up, revenue drops. They don't have time to prospect, write cold emails, follow up, or build a pipeline while also running projects. They need someone to do it for them.
+        </div>
+        <div class="prog-bar" style="margin-top:16px"><div class="prog-fill" style="width:85%"></div></div>
+        <div style="font-size:0.72rem; color:var(--muted); margin-top:6px; font-family:'DM Mono',monospace">85% of designers rely on word-of-mouth alone</div>
+      </div>
+      <div class="card">
+        <div class="card-label">The Solution</div>
+        <h3>A Done-For-You Outreach Machine</h3>
+        <div class="card-desc" style="margin-top:0">
+          Whitmore Groups identifies ideal clients for each designer (property developers, homeowners, hospitality groups, etc.), builds targeted lists, and runs personalised outreach campaigns — emails, DMs, LinkedIn — until bookings land in the designer's calendar.
+        </div>
+        <div class="prog-bar" style="margin-top:16px"><div class="prog-fill" style="width:100%"></div></div>
+        <div style="font-size:0.72rem; color:var(--muted); margin-top:6px; font-family:'DM Mono',monospace">Full pipeline ownership. Designer focuses on delivery only.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE OFFER -->
+  <div id="tab-offer" class="tab-content">
+    <div class="section-header">
+      <h2>The Offer</h2>
+      <p>Commission-based. Zero upfront risk for the client. We eat when they eat — and that's what gets us through the door as a startup.</p>
+    </div>
+
+    <!-- Payment model explanation banner -->
+    <div style="background: var(--warm); border-left: 3px solid var(--gold); border-radius: 4px; padding: 20px 24px; margin-bottom: 28px; display:flex; gap:20px; align-items:center;">
+      <div style="font-family:'Playfair Display',serif; font-size:2rem; color:var(--gold); flex-shrink:0;">₹</div>
+      <div>
+        <div style="font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.18em; color:var(--gold); margin-bottom:6px;">PAYMENT MODEL — FLAT FEE + COMMISSION</div>
+        <div style="font-size:0.85rem; color:var(--gold-light); line-height:1.7;">
+          The Pilot starts with a <strong style="color:var(--gold)">₹15,000 flat fee</strong> — paid upfront, no conditions. Growth and Premium operate on a <strong style="color:var(--gold)">commission-only basis</strong> (15% and 20% per converted deal respectively). Industry standard for B2B lead gen commissions sits at <strong style="color:var(--gold)">5–20% of total sale value</strong> — our rates sit at the conservative end, making it an easy yes for the client.
+        </div>
+      </div>
+    </div>
+
+    <div class="card-grid card-grid-3">
+      <!-- THE PILOT -->
+      <div class="card" style="border-color: var(--gold)">
+        <div class="card-label">The Pilot</div>
+        <div class="card-value" style="font-size:1.4rem; color:var(--gold)">₹15,000<span style="font-size:0.85rem; color:var(--muted)"> flat fee</span></div>
+        <div style="font-family:'DM Mono',monospace; font-size:0.68rem; color:var(--muted); margin-top:4px; margin-bottom:14px; letter-spacing:0.05em;">Paid upfront — no commission on top</div>
+        <div class="card-desc" style="line-height:2">
+          ✦ <strong>5 targeted leads/month</strong><br>
+          ✦ Manually researched — no filler<br>
+          ✦ Cold email outreach included<br>
+          ✦ Basic lead profile sheet delivered<br>
+          ✦ One revision round per batch
+        </div>
+        <div class="divider" style="margin:16px 0 12px"></div>
+        <div style="font-size:0.78rem; color:var(--muted); line-height:1.6;">
+          <strong style="color:var(--warm); display:block; margin-bottom:4px">Why flat fee here:</strong>
+          Lowest commitment for the client. One clean transaction — no tracking, no commission disputes. Perfect to prove the model.
+        </div>
+        <div class="tag tag-amber" style="margin-top:14px">Entry point. Build the case study.</div>
+      </div>
+
+      <!-- GROWTH -->
+      <div class="card" style="background: var(--warm); border-color: var(--gold)">
+        <div class="card-label" style="color:var(--gold)">Growth Package</div>
+        <div class="card-value" style="color:var(--gold); font-size:1.5rem;">15%<span style="font-size:0.85rem; color:var(--muted)"> commission</span></div>
+        <div style="font-family:'DM Mono',monospace; font-size:0.68rem; color:var(--muted); margin-top:4px; margin-bottom:14px; letter-spacing:0.05em;">Per converted client deal we source</div>
+        <div class="card-desc" style="line-height:2; color:var(--gold-light)">
+          ✦ <strong>10 targeted leads/month</strong><br>
+          ✦ Email + LinkedIn outreach<br>
+          ✦ 3-touch follow-up sequence<br>
+          ✦ Full lead profile + notes<br>
+          ✦ Bi-weekly check-in call<br>
+          ✦ Basic CRM hand-off
+        </div>
+        <div class="divider" style="margin:16px 0 12px; border-color: rgba(201,168,76,0.2)"></div>
+        <div style="font-size:0.78rem; color:var(--muted); line-height:1.6;">
+          <strong style="color:var(--gold-light); display:block; margin-bottom:4px">Example earnings:</strong>
+          Designer closes a ₹1,00,000 project from our lead<br>
+          → Whitmore earns <span style="color:var(--gold); font-family:'DM Mono',monospace; font-weight:500">₹15,000</span>
+        </div>
+        <div class="tag tag-green" style="margin-top:14px">★ Push clients toward this</div>
+      </div>
+
+      <!-- PREMIUM -->
+      <div class="card">
+        <div class="card-label">Premium Package</div>
+        <div class="card-value" style="font-size:1.5rem; color:var(--gold)">20%<span style="font-size:0.85rem; color:var(--muted)"> commission</span></div>
+        <div style="font-family:'DM Mono',monospace; font-size:0.68rem; color:var(--muted); margin-top:4px; margin-bottom:14px; letter-spacing:0.05em;">Per converted client deal we source</div>
+        <div class="card-desc" style="line-height:2">
+          ✦ <strong>15 hyper-targeted leads/month</strong><br>
+          ✦ Email + LinkedIn + IG DM<br>
+          ✦ Full 5-touch outreach sequence<br>
+          ✦ Deep ICP research per lead<br>
+          ✦ Appointment booking included<br>
+          ✦ Monthly performance report
+        </div>
+        <div class="divider" style="margin:16px 0 12px"></div>
+        <div style="font-size:0.78rem; color:var(--muted); line-height:1.6;">
+          <strong style="color:var(--warm); display:block; margin-bottom:4px">Example earnings:</strong>
+          Designer closes a ₹2,00,000 project from our lead<br>
+          → Whitmore earns <span style="color:var(--gold); font-family:'DM Mono',monospace; font-weight:500">₹40,000</span>
+        </div>
+        <div class="tag tag-amber" style="margin-top:14px">Upsell once trust is built</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- How commission is tracked -->
+    <div class="card-grid card-grid-2">
+      <div class="card">
+        <div class="card-label">How Commission Is Tracked</div>
+        <h3 style="margin-bottom:14px">Simple. Transparent. Agreed upfront.</h3>
+        <div class="card-desc" style="line-height:2">
+          ✦ All leads are logged with a unique reference code<br>
+          ✦ Designer confirms in writing when a sourced lead converts<br>
+          ✦ Invoice raised within 48 hours of confirmation<br>
+          ✦ 7-day payment terms — paid before next batch starts<br>
+          ✦ A simple one-page agreement is signed before work begins
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Why Commission Works — For Now</div>
+        <h3 style="margin-bottom:14px">Zero barrier to entry. Maximum trust.</h3>
+        <div class="card-desc" style="line-height:1.9">
+          As a startup with no case studies yet, commission removes every objection. The designer has nothing to lose — they only pay when money lands in their account. This gets us through the door, lets us build a track record, and earns the right to charge retainers later. <br><br>
+          <strong style="color:var(--warm)">The play:</strong> 3–4 commission clients → collect results → repackage as a retainer model at £500–800/month with a case study to back it up.
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="card">
+      <div class="card-label">Positioning Statement</div>
+      <div style="font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--warm); line-height:1.5; max-width:700px; margin-top:8px;">
+        "We find your next clients. You only pay us when you get paid."
+      </div>
+      <div class="card-desc" style="margin-top:12px">No retainer. No risk. We handle the prospecting and outreach — you focus on delivering great interiors. Commission is settled only when a deal from our leads converts.</div>
+    </div>
+  </div>
+
+  <!-- LEAD STRATEGY -->
+  <div id="tab-leads" class="tab-content">
+    <div class="section-header">
+      <h2>Lead Strategy</h2>
+      <p>How we find the ideal prospects for interior designers — and why each source works.</p>
+    </div>
+
+    <div class="card-grid card-grid-2" style="margin-bottom:20px">
+      <div class="card">
+        <div class="card-label">Who We're Targeting (for our clients)</div>
+        <h3>Ideal Prospect Profiles</h3>
+        <div style="margin-top:12px">
+          <div class="checklist-item" style="cursor:default; padding:10px 0">
+            <div class="check-box" style="border-color:var(--gold); background:var(--gold)"><span style="font-size:11px; color:white; font-weight:700">✓</span></div>
+            <div class="check-label"><strong>Residential Property Developers</strong>Buying/renovating multiple units. High LTV client for the designer.</div>
+          </div>
+          <div class="checklist-item" style="cursor:default; padding:10px 0">
+            <div class="check-box" style="border-color:var(--gold); background:var(--gold)"><span style="font-size:11px; color:white; font-weight:700">✓</span></div>
+            <div class="check-label"><strong>Boutique Hospitality (Hotels, Restaurants)</strong>High-budget, repeat business. Need full fit-out services.</div>
+          </div>
+          <div class="checklist-item" style="cursor:default; padding:10px 0">
+            <div class="check-box" style="border-color:var(--gold); background:var(--gold)"><span style="font-size:11px; color:white; font-weight:700">✓</span></div>
+            <div class="check-label"><strong>High-Net-Worth Homeowners</strong>New builds, luxury renovations. Often found via planning permissions.</div>
+          </div>
+          <div class="checklist-item" style="cursor:default; padding:10px 0">
+            <div class="check-box" style="border-color:var(--gold); background:var(--gold)"><span style="font-size:11px; color:white; font-weight:700">✓</span></div>
+            <div class="check-label"><strong>Commercial Office Fit-Out Buyers</strong>Companies moving offices or refurbing. Procurement-led, bigger contracts.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Lead Sources We Use</div>
+        <h3>Where We Find the Leads</h3>
+        <div style="margin-top:14px; display:flex; flex-direction:column; gap:12px">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px">
+              <span style="font-size:0.82rem; font-weight:500">LinkedIn Sales Navigator</span>
+              <span class="tag tag-green">Primary</span>
+            </div>
+            <div class="prog-bar"><div class="prog-fill" style="width:90%"></div></div>
+            <div style="font-size:0.72rem; color:var(--muted); margin-top:3px; font-family:'DM Mono',monospace">Developers, HNW, commercial buyers by title + location</div>
+          </div>
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px">
+              <span style="font-size:0.82rem; font-weight:500">Planning Permission Records (UK)</span>
+              <span class="tag tag-green">Gold Mine</span>
+            </div>
+            <div class="prog-bar"><div class="prog-fill" style="width:80%"></div></div>
+            <div style="font-size:0.72rem; color:var(--muted); margin-top:3px; font-family:'DM Mono',monospace">Public records — people actively building/renovating right now</div>
+          </div>
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px">
+              <span style="font-size:0.82rem; font-weight:500">Apollo.io / Hunter.io</span>
+              <span class="tag tag-amber">Email Finder</span>
+            </div>
+            <div class="prog-bar"><div class="prog-fill" style="width:70%"></div></div>
+            <div style="font-size:0.72rem; color:var(--muted); margin-top:3px; font-family:'DM Mono',monospace">Verify and enrich emails from LinkedIn scrapes</div>
+          </div>
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px">
+              <span style="font-size:0.82rem; font-weight:500">Instagram + Google Maps</span>
+              <span class="tag tag-amber">Supplement</span>
+            </div>
+            <div class="prog-bar"><div class="prog-fill" style="width:55%"></div></div>
+            <div style="font-size:0.72rem; color:var(--muted); margin-top:3px; font-family:'DM Mono',monospace">Local hospitality businesses — DM outreach channel</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Lead Qualification Framework</div>
+      <h3>ICP Scoring (Ideal Client Profile)</h3>
+      <div style="margin-top:16px; overflow-x:auto">
+        <table class="rev-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Criteria</th>
+              <th>Signal</th>
+              <th>Score Weight</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-family:'DM Mono',monospace; color:var(--muted)">5</td>
+              <td>Budget indicator</td>
+              <td>£100K+ project value or premium listing</td>
+              <td>25%</td>
+              <td><span class="tag tag-green">High</span></td>
+            </tr>
+            <tr>
+              <td style="font-family:'DM Mono',monospace; color:var(--muted)">6</td>
+              <td>Active project signal</td>
+              <td>Planning permission filed, new office lease, hotel opening</td>
+              <td>30%</td>
+              <td><span class="tag tag-green">High</span></td>
+            </tr>
+            <tr>
+              <td style="font-family:'DM Mono',monospace; color:var(--muted)">7</td>
+              <td>Decision maker access</td>
+              <td>Direct LinkedIn/email to owner or director</td>
+              <td>25%</td>
+              <td><span class="tag tag-amber">Medium</span></td>
+            </tr>
+            <tr>
+              <td style="font-family:'DM Mono',monospace; color:var(--muted)">8</td>
+              <td>Geography match</td>
+              <td>Same city/region as designer's service area</td>
+              <td>20%</td>
+              <td><span class="tag tag-amber">Medium</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- OUTREACH ENGINE -->
+  <div id="tab-outreach" class="tab-content">
+    <div class="section-header">
+      <h2>Outreach Engine</h2>
+      <p>The exact system we run for clients — channels, sequences, tools, and scripts.</p>
+    </div>
+
+    <div class="card-grid card-grid-3" style="margin-bottom:20px">
+      <div class="card">
+        <div class="card-label">Channel 1</div>
+        <h3>Cold Email</h3>
+        <div class="card-desc">Primary driver. 5-touch sequence over 14 days. Tools: Instantly.ai or Smartlead. Warm-up domain first (2–3 weeks). Target: 3–5% reply rate.</div>
+        <div class="tag tag-green" style="margin-top:12px">Highest volume</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Channel 2</div>
+        <h3>LinkedIn Outreach</h3>
+        <div class="card-desc">Connection request → personalised message. Use Sales Nav for targeting. Voice notes perform 3× better than text. Target: 15–20% acceptance rate.</div>
+        <div class="tag tag-amber" style="margin-top:12px">Highest quality</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Channel 3</div>
+        <h3>Instagram DMs</h3>
+        <div class="card-desc">For hospitality & lifestyle businesses. Comment → engage → DM. More casual tone. Works best for restaurants, boutique hotels, retail. Target: 8–12% reply rate.</div>
+        <div class="tag tag-amber" style="margin-top:12px">Supplement</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:20px">
+      <div class="card-label">Email Sequence — 5 Touch</div>
+      <h3 style="margin-bottom:20px">The Outreach Sequence (Day-by-Day)</h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-phase">Day 1 — Email 1</div>
+          <div class="timeline-title">The Hook</div>
+          <div class="timeline-body">Short, personalised, relevant. Reference their specific project or niche. One clear CTA: "Worth a 15-minute call?" No attachments, no long pitch.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-phase">Day 3 — Email 2</div>
+          <div class="timeline-title">The Social Proof Nudge</div>
+          <div class="timeline-body">Brief follow-up. Mention a result: "We helped [Designer Name] book 8 consultations in the first month." Reinforce credibility without over-explaining.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-phase">Day 7 — Email 3</div>
+          <div class="timeline-title">The Value Add</div>
+          <div class="timeline-body">Send something useful — a short insight, a market stat about interiors, or a case study. Ask if now is a better time. Frame yourself as helpful, not pushy.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-phase">Day 10 — Email 4</div>
+          <div class="timeline-title">The Urgency Frame</div>
+          <div class="timeline-body">"We're onboarding 2 more designers this quarter — wanted to see if you'd want to talk before we fill the spots." Creates FOMO without being dishonest.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-phase">Day 14 — Email 5</div>
+          <div class="timeline-title">The Breakup</div>
+          <div class="timeline-body">"I won't reach out again — but if you ever need more clients, I'm one message away." Short, human, no pressure. Often generates the most replies.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="script-box">
+      Subject: More clients for <span class="script-placeholder">[Designer Name]</span>'s studio<br><br>
+      Hi <span class="script-placeholder">[First Name]</span>,<br><br>
+      I came across your work on <span class="script-placeholder">[Instagram/LinkedIn/website]</span> — the <span class="script-placeholder">[specific project]</span> project is exactly the kind of work property developers in <span class="script-placeholder">[City]</span> need right now.<br><br>
+      We run outreach campaigns for interior designers — finding and booking consultations with developers, hospitality groups, and high-end residential clients. Most designers we work with add 6–10 consultations per month within 4–6 weeks.<br><br>
+      Worth 15 minutes to see if it's a fit?<br><br>
+      — <span class="script-placeholder">[Your Name]</span>, Whitmore Groups
+    </div>
+  </div>
+
+  <!-- REVENUE MODEL -->
+  <div id="tab-revenue" class="tab-content">
+    <div class="section-header">
+      <h2>Revenue Model</h2>
+      <p>Commission-based. Every number here is tied directly to our current offer structure. Assumptions: avg interior design project value = ₹1,00,000–₹2,00,000. Conversion rate on our leads = ~30%.</p>
+    </div>
+
+    <!-- Milestone cards -->
+    <div class="card-grid card-grid-4" style="margin-bottom:28px">
+      <div class="card">
+        <div class="card-label">Month 1 — Launch</div>
+        <div class="card-value">₹1L</div>
+        <div class="card-desc">Pilot flat fee (₹15K) + first Growth commission. Set the foundation, prove the model.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Month 3 — Traction</div>
+        <div class="card-value">₹5L</div>
+        <div class="card-desc">Mix of Growth + Premium conversions. Cumulative hits ₹9L. Case study secured, outreach system running.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Month 12 — Year 1 End</div>
+        <div class="card-value">₹23L/mo</div>
+        <div class="card-desc">₹1.44Cr cumulative by end of Year 1. Monthly target at ₹23L. Multiple Premium clients converting.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Month 23 — Goal</div>
+        <div class="card-value">₹5.29Cr</div>
+        <div class="card-desc">₹5 Crore cumulative crossed. Monthly run rate at ₹45L. The Whitmore Empire is real.</div>
+      </div>
+    </div>
+
+    <!-- Revenue breakdown table -->
+    <div class="card" style="margin-bottom:20px">
+      <div class="card-label">Revenue Breakdown — Per Conversion Scenario</div>
+      <div style="font-size:0.78rem; color:var(--muted); margin:8px 0 16px; font-family:'DM Mono',monospace;">Assumes avg project value: Growth clients = ₹1,00,000 · Premium clients = ₹2,00,000</div>
+      <table class="rev-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Client</th>
+            <th>Package</th>
+            <th>Avg Deal Value</th>
+            <th>Our Commission</th>
+            <th>Whitmore Earns</th>
+            <th>Timeline</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-family:'DM Mono',monospace; color:var(--muted)">5</td>
+            <td>Client 1 (Case Study)</td>
+            <td>The Pilot — Flat Fee</td>
+            <td>—</td>
+            <td>Flat</td>
+            <td style="font-family:'Playfair Display',serif; color:var(--warm)">₹15,000</td>
+            <td><span class="tag tag-amber">Now</span></td>
+          </tr>
+          <tr>
+            <td style="font-family:'DM Mono',monospace; color:var(--muted)">6</td>
+            <td>Client 2</td>
+            <td>Growth — 15%</td>
+            <td>₹1,00,000</td>
+            <td>15%</td>
+            <td style="font-family:'Playfair Display',serif; color:var(--warm)">₹15,000</td>
+            <td><span class="tag tag-amber">Month 2</span></td>
+          </tr>
+          <tr>
+            <td style="font-family:'DM Mono',monospace; color:var(--muted)">7</td>
+            <td>Client 3</td>
+            <td>Growth — 15%</td>
+            <td>₹1,00,000</td>
+            <td>15%</td>
+            <td style="font-family:'Playfair Display',serif; color:var(--warm)">₹15,000</td>
+            <td><span class="tag tag-amber">Month 3</span></td>
+          </tr>
+          <tr>
+            <td style="font-family:'DM Mono',monospace; color:var(--muted)">8</td>
+            <td>Client 4</td>
+            <td>Premium — 20%</td>
+            <td>₹2,00,000</td>
+            <td>20%</td>
+            <td style="font-family:'Playfair Display',serif; color:var(--warm)">₹40,000</td>
+            <td><span class="tag tag-red">Month 4–5</span></td>
+          </tr>
+          <tr>
+            <td style="font-family:'DM Mono',monospace; color:var(--muted)">9</td>
+            <td>Client 5</td>
+            <td>Premium — 20%</td>
+            <td>₹2,00,000</td>
+            <td>20%</td>
+            <td style="font-family:'Playfair Display',serif; color:var(--warm)">₹40,000</td>
+            <td><span class="tag tag-red">Month 6</span></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="total">
+            <td colspan="5">CUMULATIVE BY MONTH 6</td>
+            <td>₹1,25,000</td>
+            <td><span class="tag tag-green">Milestone</span></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- Premium vs Standard comparison -->
+    <div class="card" style="margin-bottom:20px">
+      <div class="card-label">Premium vs Growth — Timeline to ₹1 Lakh Earned</div>
+      <h3 style="margin-bottom:6px">How fast do we hit ₹1L depending on what our client chose?</h3>
+      <div style="font-size:0.78rem; color:var(--muted); margin-bottom:20px; font-family:'DM Mono',monospace;">Assumes 1 deal converted per month per client. Realistic for warm, well-targeted outreach.</div>
+
+      <div class="card-grid card-grid-2" style="margin-bottom:0">
+        <!-- Growth path -->
+        <div style="border: 1px solid var(--border); border-radius:4px; padding:22px;">
+          <div style="font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.15em; color:var(--muted); margin-bottom:8px;">GROWTH PACKAGE — 15% COMMISSION</div>
+          <div style="font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--warm); margin-bottom:16px;">₹15,000 per conversion · Avg deal ₹1,00,000</div>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div>
+              <div style="display:flex; justify-content:space-between; font-size:0.78rem; margin-bottom:4px;"><span style="color:var(--muted)">Month 1 — Target ₹1L</span><span style="font-family:'DM Mono',monospace; color:var(--dark)">₹15K earned (1 deal)</span></div>
+              <div class="prog-bar"><div class="prog-fill" style="width:15%"></div></div>
+            </div>
+            <div>
+              <div style="display:flex; justify-content:space-between; font-size:0.78rem; margin-bottom:4px;"><span style="color:var(--muted)">Month 3 — Target ₹5L</span><span style="font-family:'DM Mono',monospace; color:var(--dark)">₹45K earned (3 deals)</span></div>
+              <div class="prog-bar"><div class="prog-fill" style="width:30%"></div></div>
+            </div>
+            <div>
+              <div style="display:flex; justify-content:space-between; font-size:0.78rem; margin-bottom:4px;"><span style="color:var(--muted)">Month 6 — Target ₹11L</span><span style="font-family:'DM Mono',monospace; color:var(--dark)">₹90K earned (6 deals)</span></div>
+              <div class="prog-bar"><div class="prog-fill" style="width:50%"></div></div>
+            </div>
+            <div>
+              <div style="display:flex; justify-content:space-between; font-size:0.78rem; margin-bottom:4px;"><span style="color:var(--muted)">Month 12 — Target ₹23L</span><span style="font-family:'DM Mono',monospace; color:var(--dark)">₹1.8L earned (12 deals)</span></div>
+              <div class="prog-bar"><div class="prog-fill" style="width:75%"></div></div>
+            </div>
+            <div>
+              <div style="display:flex; justify-content:space-between; font-size:0.78rem; margin-bottom:4px;"><span style="color:var(--muted)">Month 23 — Target ₹45L</span><span style="font-family:'DM Mono',monospace; color:var(--gold); font-weight:600">₹3.45L earned ✓ 5Cr hit</span></div>
+              <div class="prog-bar"><div class="prog-fill" style="width:100%"></div></div>
+            </div>
+          </div>
+          <div style="margin-top:16px; background:rgba(201,168,76,0.08); border:1px solid var(--border); border-radius:3px; padding:10px 14px; font-size:0.8rem; color:var(--warm);">
+            🕐 Cumulative ₹5Cr hit at <strong>Month 23</strong> · Monthly earning grows to ₹3.45L by then
+          </div>
+        </div>
+
+        <!-- Premium path -->
+        <div style="border: 1px solid var(--gold); border-radius:4px; padding:22px; background: rgba(201,168,76,0.03);">
+          <div style="font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.15em; color:var(--gold); margin-bottom:8px;">PREMIUM PACKAGE — 20% COMMISSION ★</div>
+          <div style="font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--warm); margin-bottom:16px;">₹40,000 per conversion · Avg deal ₹2,00,000</div>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div>
+              <div style="display:flex; justify-content:space-between; font-size:0.78rem; margin-bottom:4px;"><span style="color:var(--muted)">Month 1 — Target ₹1L</span><span style="font-family:'DM Mono',monospace; color:var(--dark)">₹40K earned (1 deal)</span></div>
+              <div class="prog-bar"><div class="prog-fill" style="width:40%"></div></div>
+            </div>
+            <div>
+              <div style="display:flex; justify-content:space-between; font-size:0.78rem; margin-bottom:4px;"><span style="color:var(--muted)">Month 3 — Target ₹5L</span><span style="font-family:'DM Mono',monospace; color:var(--gold); font-weight:600">₹1.2L earned ✓ (3 deals)</span></div>
+              <div class="prog-bar"><div class="prog-fill" style="width:60%"></div></div>
+            </div>
+            <div>
+              <div style="display:flex; justify-content:space-between; font-size:0.78rem; margin-bottom:4px;"><span style="color:var(--muted)">Month 6 — Target ₹11L</span><span style="font-family:'DM Mono',monospace; color:var(--dark)">₹2.4L earned (6 deals)</span></div>
+              <div class="prog-bar"><div class="prog-fill" style="width:75%"></div></div>
+            </div>
+            <div>
+              <div style="display:flex; justify-content:space-between; font-size:0.78rem; margin-bottom:4px;"><span style="color:var(--muted)">Month 12 — Target ₹23L</span><span style="font-family:'DM Mono',monospace; color:var(--dark)">₹4.8L earned (12 deals)</span></div>
+              <div class="prog-bar"><div class="prog-fill" style="width:90%"></div></div>
+            </div>
+            <div>
+              <div style="display:flex; justify-content:space-between; font-size:0.78rem; margin-bottom:4px;"><span style="color:var(--muted)">Month 23 — Target ₹45L</span><span style="font-family:'DM Mono',monospace; color:var(--gold); font-weight:600">₹9L earned ✓ 5Cr hit</span></div>
+              <div class="prog-bar"><div class="prog-fill" style="width:100%"></div></div>
+            </div>
+          </div>
+          <div style="margin-top:16px; background:rgba(201,168,76,0.12); border:1px solid var(--gold); border-radius:3px; padding:10px 14px; font-size:0.8rem; color:var(--warm);">
+            ⚡ Cumulative ₹5Cr hit at <strong>Month 23</strong> · Monthly earning grows to ₹9L by then — 2.67× Growth
+          </div>
+
+          <div style="margin-top:12px; font-size:0.78rem; color:var(--muted); line-height:1.7;">
+            Premium clients have larger project budgets, more serious intent, and close faster. The extra 5% rate + higher deal size means every single month you earn more than double a Growth client.
+          </div>
+        </div>
+      </div>
+
+      <!-- Summary callout -->
+      <div style="margin-top:20px; background: var(--warm); border-radius:4px; padding:18px 22px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+        <div style="font-family:'Playfair Display',serif; font-size:1rem; color:var(--gold-light);">Every Premium client you close is worth <strong style="color:var(--gold)">2.67× more</strong> than a Growth client — and closes ₹1L <strong style="color:var(--gold)">4 months earlier.</strong></div>
+        <div class="tag tag-green" style="white-space:nowrap">Push for Premium always</div>
+      </div>
+    </div>
+
+    <!-- 5 Crore Roadmap -->
+    <div class="card" style="margin-bottom:20px; overflow:hidden;">
+      <div class="card-label">The ₹5 Crore Roadmap — 23-Month Honest Plan</div>
+      <h3 style="margin-bottom:6px">₹1L → ₹3L → ₹5L → ₹7L... every month +₹2L until ₹5Cr cumulative</h3>
+      <div style="font-size:0.78rem;color:var(--muted);margin-bottom:20px;font-family:'DM Mono',monospace;line-height:1.8;">
+        Goal: <strong style="color:var(--gold)">₹5,00,00,000 cumulative</strong> &nbsp;·&nbsp; Timeline: <strong style="color:var(--gold)">23 months</strong> &nbsp;·&nbsp; Crossed at Month 23 with ₹5.29Cr &nbsp;·&nbsp; Year 1 ends at <strong style="color:var(--gold)">₹1.44Cr</strong>
+      </div>
+
+      <!-- Phase legend -->
+      <div style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--muted);">
+          <div style="width:10px;height:10px;border-radius:50%;background:#C9A84C;"></div> Launch (M1–3)
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--muted);">
+          <div style="width:10px;height:10px;border-radius:50%;background:#7BAE7F;"></div> Year 1 (M4–12)
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--muted);">
+          <div style="width:10px;height:10px;border-radius:50%;background:#E07B5A;"></div> Year 2 (M13–23)
+        </div>
+      </div>
+
+      <div style="overflow-x:auto;">
+        <table class="rev-table" style="min-width:600px;">
+          <thead>
+            <tr>
+              <th>Month</th>
+              <th>Phase</th>
+              <th>Monthly Target</th>
+              <th>Progress to ₹5Cr</th>
+              <th>Cumulative</th>
+              <th>% Done</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr class="roadmap-row">
+          <td style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.75rem;">M01</td>
+          <td><span style="background:#C9A84C22;color:#C9A84C;font-family:'DM Mono',monospace;font-size:0.6rem;padding:2px 8px;border-radius:2px;">Launch</span></td>
+          <td style="font-family:'Playfair Display',serif;color:var(--warm);font-weight:700;">₹1L</td>
+          <td style="min-width:160px;">
+            <div style="height:6px;background:rgba(201,168,76,0.12);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:0.2%;background:linear-gradient(90deg,#C9A84C,#E8D5A3);border-radius:3px;transition:width 1s ease;"></div>
+            </div>
+          </td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--dark);">₹0.01Cr</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);">0.2%</td>
+        </tr>
+        <tr class="roadmap-row">
+          <td style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.75rem;">M02</td>
+          <td><span style="background:#C9A84C22;color:#C9A84C;font-family:'DM Mono',monospace;font-size:0.6rem;padding:2px 8px;border-radius:2px;">Launch</span></td>
+          <td style="font-family:'Playfair Display',serif;color:var(--warm);font-weight:700;">₹3L</td>
+          <td style="min-width:160px;">
+            <div style="height:6px;background:rgba(201,168,76,0.12);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:0.8%;background:linear-gradient(90deg,#C9A84C,#E8D5A3);border-radius:3px;transition:width 1s ease;"></div>
+            </div>
+          </td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--dark);">₹0.04Cr</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);">0.8%</td>
+        </tr>
+        <tr class="roadmap-row">
+          <td style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.75rem;">M03</td>
+          <td><span style="background:#C9A84C22;color:#C9A84C;font-family:'DM Mono',monospace;font-size:0.6rem;padding:2px 8px;border-radius:2px;">Launch</span></td>
+          <td style="font-family:'Playfair Display',serif;color:var(--warm);font-weight:700;">₹5L</td>
+          <td style="min-width:160px;">
+            <div style="height:6px;background:rgba(201,168,76,0.12);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:1.8%;background:linear-gradient(90deg,#C9A84C,#E8D5A3);border-radius:3px;transition:width 1s ease;"></div>
+            </div>
+          </td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--dark);">₹0.09Cr</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);">1.8%</td>
+        </tr>
+        <tr class="roadmap-row">
+          <td style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.75rem;">M04</td>
+          <td><span style="background:#7BAE7F22;color:#7BAE7F;font-family:'DM Mono',monospace;font-size:0.6rem;padding:2px 8px;border-radius:2px;">Year 1</span></td>
+          <td style="font-family:'Playfair Display',serif;color:var(--warm);font-weight:700;">₹7L</td>
+          <td style="min-width:160px;">
+            <div style="height:6px;background:rgba(201,168,76,0.12);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:3.2%;background:linear-gradient(90deg,#C9A84C,#E8D5A3);border-radius:3px;transition:width 1s ease;"></div>
+            </div>
+          </td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--dark);">₹0.16Cr</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);">3.2%</td>
+        </tr>
+        <tr class="roadmap-row">
+          <td style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.75rem;">M05</td>
+          <td><span style="background:#7BAE7F22;color:#7BAE7F;font-family:'DM Mono',monospace;font-size:0.6rem;padding:2px 8px;border-radius:2px;">Year 1</span></td>
+          <td style="font-family:'Playfair Display',serif;color:var(--warm);font-weight:700;">₹9L</td>
+          <td style="min-width:160px;">
+            <div style="height:6px;background:rgba(201,168,76,0.12);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:5.0%;background:linear-gradient(90deg,#C9A84C,#E8D5A3);border-radius:3px;transition:width 1s ease;"></div>
+            </div>
+          </td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--dark);">₹0.25Cr</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);">5.0%</td>
+        </tr>
+        <tr class="roadmap-row">
+          <td style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.75rem;">M06</td>
+          <td><span style="background:#7BAE7F22;color:#7BAE7F;font-family:'DM Mono',monospace;font-size:0.6rem;padding:2px 8px;border-radius:2px;">Year 1</span></td>
+          <td style="font-family:'Playfair Display',serif;color:var(--warm);font-weight:700;">₹11L</td>
+          <td style="min-width:160px;">
+            <div style="height:6px;background:rgba(201,168,76,0.12);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:7.2%;background:linear-gradient(90deg,#C9A84C,#E8D5A3);border-radius:3px;transition:width 1s ease;"></div>
+            </div>
+          </td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--dark);">₹0.36Cr</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);">7.2%</td>
+        </tr>
+        <tr class="roadmap-row">
+          <td style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.75rem;">M07</td>
+          <td><span style="background:#7BAE7F22;color:#7BAE7F;font-family:'DM Mono',monospace;font-size:0.6rem;padding:2px 8px;border-radius:2px;">Year 1</span></td>
+          <td style="font-family:'Playfair Display',serif;color:var(--warm);font-weight:700;">₹13L</td>
+          <td style="min-width:160px;">
+            <div style="height:6px;background:rgba(201,168,76,0.12);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:9.8%;background:linear-gradient(90deg,#C9A84C,#E8D5A3);border-radius:3px;transition:width 1s ease;"></div>
+            </div>
+          </td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--dark);">₹0.49Cr</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);">9.8%</td>
+        </tr>
+        <tr class="roadmap-row">
+          <td style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.75rem;">M08</td>
+          <td><span style="background:#7BAE7F22;color:#7BAE7F;font-family:'DM Mono',monospace;font-size:0.6rem;padding:2px 8px;border-radius:2px;">Year 1</span></td>
+          <td style="font-family:'Playfair Display',serif;color:var(--warm);font-weight:700;">₹15L</td>
+          <td style="min-width:160px;">
+            <div style="height:6px;background:rgba(201,168,76,0.12);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:12.8%;background:linear-gradient(90deg,#C9A84C,#E8D5A3);border-radius:3px;transition:width 1s ease;"></div>
+            </div>
+          </td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--dark);">₹0.64Cr</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);">12.8%</td>
+        </tr>
+        <tr class="roadmap-row">
+          <td style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.75rem;">M09</td>
+          <td><span style="background:#7BAE7F22;color:#7BAE7F;font-family:'DM Mono',monospace;font-size:0.6rem;padding:2px 8px;border-radius:2px;">Year 1</span></td>
+          <td style="font-family:'Playfair Display',serif;color:var(--warm);font-weight:700;">₹17L</td>
+          <td style="min-width:160px;">
+            <div style="height:6px;background:rgba(201,168,76,0.12);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:16.2%;background:linear-gradient(90deg,#C9A84C,#E8D5A3);border-radius:3px;transition:width 1s ease;"></div>
+            </div>
+          </td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--dark);">₹0.81Cr</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);">16.2%</td>
+        </tr>
+        <tr class="roadmap-row">
+          <td style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.75rem;">M10</td>
+          <td><span style="background:#7BAE7F22;color:#7BAE7F;font-family:'DM Mono',monospace;font-size:0.6rem;padding:2px 8px;border-radius:2px;">Year 1</span></td>
+          <td style="font-family:'Playfair Display',serif;color:var(--warm);font-weight:700;">₹19L</td>
+          <td style="min-width:160px;">
+            <div style="height:6px;background:rgba(201,168,76,0.12);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:20.0%;background:linear-gradient(90deg,#C9A84C,#E8D5A3);border-radius:3px;transition:width 1s ease;"></div>
+            </div>
+          </td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--dark);">₹1.00Cr</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);">20.0%</td>
+        </tr>
+        <tr class="roadmap-row">
+          <td style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.75rem;">M11</td>
+          <td><span style="background:#7BAE7F22;color:#7BAE7F;font-family:'DM Mono',monospace;font-size:0.6rem;padding:2px 8px;border-radius:2px;">Year 1</span></td>
+          <td style="font-family:'Playfair Display',serif;color:var(--warm);font-weight:700;">₹21L</td>
+          <td style="min-width:160px;">
+            <div style="height:6px;background:rgba(201,168,76,0.12);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:24.2%;background:linear-gradient(90deg,#C9A84C,#E8D5A3);border-radius:3px;transition:width 1s ease;"></div>
+            </div>
+          </td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--dark);">₹1.21Cr</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);">24.2%</td>
+        </tr>
+        <tr class="roadmap-row">
+          <td style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.75rem;">M12</td>
+          <td><span style="background:#7BAE7F22;color:#7BAE7F;font-family:'DM Mono',monospace;font-size:0.6rem;padding:2px 8px;border-radius:2px;">Year 1</span></td>
+          <td style="font-family:'Playfair Display',serif;color:var(--warm);font-weight:700;">₹23L</td>
+          <td style="min-width:160px;">
+            <div style="height:6px;background:rgba(201,168,76,0.12);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:28.8%;background:linear-gradient(90deg,#C9A84C,#E8D5A3);border-radius:3px;transition:width 1s ease;"></div>
+            </div>
+          </td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--dark);">₹1.44Cr</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);">28.8%</td>
+        </tr>
+        <tr class="roadmap-row">
+          <td style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.75rem;">M13</td>
+          <td><span style="background:#E07B5A22;color:#E07B5A;font-family:'DM Mono',monospace;font-size:0.6rem;padding:2px 8px;border-radius:2px;">Year 2</span></td>
+          <td style="font-family:'Playfair Display',serif;color:var(--warm);font-weight:700;">₹25L</td>
+          <td style="min-width:160px;">
+            <div style="height:6px;background:rgba(201,168,76,0.12);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:33.8%;background:linear-gradient(90deg,#C9A84C,#E8D5A3);border-radius:3px;transition:width 1s ease;"></div>
+            </div>
+          </td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--dark);">₹1.69Cr</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);">33.8%</td>
+        </tr>
+        <tr class="roadmap-row">
+          <td style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.75rem;">M14</td>
+          <td><span style="background:#E07B5A22;color:#E07B5A;font-family:'DM Mono',monospace;font-size:0.6rem;padding:2px 8px;border-radius:2px;">Year 2</span></td>
+          <td style="font-family:'Playfair Display',serif;color:var(--warm);font-weight:700;">₹27L</td>
+          <td style="min-width:160px;">
+            <div style="height:6px;background:rgba(201,168,76,0.12);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:39.2%;background:linear-gradient(90deg,#C9A84C,#E8D5A3);border-radius:3px;transition:width 1s ease;"></div>
+            </div>
+          </td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--dark);">₹1.96Cr</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);">39.2%</td>
+        </tr>
+        <tr class="roadmap-row">
+          <td style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.75rem;">M15</td>
+          <td><span style="background:#E07B5A22;color:#E07B5A;font-family:'DM Mono',monospace;font-size:0.6rem;padding:2px 8px;border-radius:2px;">Year 2</span></td>
+          <td style="font-family:'Playfair Display',serif;color:var(--warm);font-weight:700;">₹29L</td>
+          <td style="min-width:160px;">
+            <div style="height:6px;background:rgba(201,168,76,0.12);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:45.0%;background:linear-gradient(90deg,#C9A84C,#E8D5A3);border-radius:3px;transition:width 1s ease;"></div>
+            </div>
+          </td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--dark);">₹2.25Cr</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);">45.0%</td>
+        </tr>
+        <tr class="roadmap-row">
+          <td style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.75rem;">M16</td>
+          <td><span style="background:#E07B5A22;color:#E07B5A;font-family:'DM Mono',monospace;font-size:0.6rem;padding:2px 8px;border-radius:2px;">Year 2</span></td>
+          <td style="font-family:'Playfair Display',serif;color:var(--warm);font-weight:700;">₹31L</td>
+          <td style="min-width:160px;">
+            <div style="height:6px;background:rgba(201,168,76,0.12);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:51.2%;background:linear-gradient(90deg,#C9A84C,#E8D5A3);border-radius:3px;transition:width 1s ease;"></div>
+            </div>
+          </td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--dark);">₹2.56Cr</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);">51.2%</td>
+        </tr>
+        <tr class="roadmap-row">
+          <td style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.75rem;">M17</td>
+          <td><span style="background:#E07B5A22;color:#E07B5A;font-family:'DM Mono',monospace;font-size:0.6rem;padding:2px 8px;border-radius:2px;">Year 2</span></td>
+          <td style="font-family:'Playfair Display',serif;color:var(--warm);font-weight:700;">₹33L</td>
+          <td style="min-width:160px;">
+            <div style="height:6px;background:rgba(201,168,76,0.12);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:57.8%;background:linear-gradient(90deg,#C9A84C,#E8D5A3);border-radius:3px;transition:width 1s ease;"></div>
+            </div>
+          </td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--dark);">₹2.89Cr</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);">57.8%</td>
+        </tr>
+        <tr class="roadmap-row">
+          <td style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.75rem;">M18</td>
+          <td><span style="background:#E07B5A22;color:#E07B5A;font-family:'DM Mono',monospace;font-size:0.6rem;padding:2px 8px;border-radius:2px;">Year 2</span></td>
+          <td style="font-family:'Playfair Display',serif;color:var(--warm);font-weight:700;">₹35L</td>
+          <td style="min-width:160px;">
+            <div style="height:6px;background:rgba(201,168,76,0.12);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:64.8%;background:linear-gradient(90deg,#C9A84C,#E8D5A3);border-radius:3px;transition:width 1s ease;"></div>
+            </div>
+          </td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--dark);">₹3.24Cr</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);">64.8%</td>
+        </tr>
+        <tr class="roadmap-row">
+          <td style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.75rem;">M19</td>
+          <td><span style="background:#E07B5A22;color:#E07B5A;font-family:'DM Mono',monospace;font-size:0.6rem;padding:2px 8px;border-radius:2px;">Year 2</span></td>
+          <td style="font-family:'Playfair Display',serif;color:var(--warm);font-weight:700;">₹37L</td>
+          <td style="min-width:160px;">
+            <div style="height:6px;background:rgba(201,168,76,0.12);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:72.2%;background:linear-gradient(90deg,#C9A84C,#E8D5A3);border-radius:3px;transition:width 1s ease;"></div>
+            </div>
+          </td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--dark);">₹3.61Cr</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);">72.2%</td>
+        </tr>
+        <tr class="roadmap-row">
+          <td style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.75rem;">M20</td>
+          <td><span style="background:#E07B5A22;color:#E07B5A;font-family:'DM Mono',monospace;font-size:0.6rem;padding:2px 8px;border-radius:2px;">Year 2</span></td>
+          <td style="font-family:'Playfair Display',serif;color:var(--warm);font-weight:700;">₹39L</td>
+          <td style="min-width:160px;">
+            <div style="height:6px;background:rgba(201,168,76,0.12);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:80.0%;background:linear-gradient(90deg,#C9A84C,#E8D5A3);border-radius:3px;transition:width 1s ease;"></div>
+            </div>
+          </td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--dark);">₹4.00Cr</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);">80.0%</td>
+        </tr>
+        <tr class="roadmap-row">
+          <td style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.75rem;">M21</td>
+          <td><span style="background:#E07B5A22;color:#E07B5A;font-family:'DM Mono',monospace;font-size:0.6rem;padding:2px 8px;border-radius:2px;">Year 2</span></td>
+          <td style="font-family:'Playfair Display',serif;color:var(--warm);font-weight:700;">₹41L</td>
+          <td style="min-width:160px;">
+            <div style="height:6px;background:rgba(201,168,76,0.12);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:88.2%;background:linear-gradient(90deg,#C9A84C,#E8D5A3);border-radius:3px;transition:width 1s ease;"></div>
+            </div>
+          </td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--dark);">₹4.41Cr</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);">88.2%</td>
+        </tr>
+        <tr class="roadmap-row">
+          <td style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.75rem;">M22</td>
+          <td><span style="background:#E07B5A22;color:#E07B5A;font-family:'DM Mono',monospace;font-size:0.6rem;padding:2px 8px;border-radius:2px;">Year 2</span></td>
+          <td style="font-family:'Playfair Display',serif;color:var(--warm);font-weight:700;">₹43L</td>
+          <td style="min-width:160px;">
+            <div style="height:6px;background:rgba(201,168,76,0.12);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:96.8%;background:linear-gradient(90deg,#C9A84C,#E8D5A3);border-radius:3px;transition:width 1s ease;"></div>
+            </div>
+          </td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--dark);">₹4.84Cr</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);">96.8%</td>
+        </tr>
+        <tr class="roadmap-row">
+          <td style="font-family:'DM Mono',monospace;color:var(--muted);font-size:0.75rem;">M23</td>
+          <td><span style="background:#E07B5A22;color:#E07B5A;font-family:'DM Mono',monospace;font-size:0.6rem;padding:2px 8px;border-radius:2px;">Year 2</span></td>
+          <td style="font-family:'Playfair Display',serif;color:var(--warm);font-weight:700;">₹45L</td>
+          <td style="min-width:160px;">
+            <div style="height:6px;background:rgba(201,168,76,0.12);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:100.0%;background:linear-gradient(90deg,#3a9a3a,#7BAE7F);border-radius:3px;transition:width 1s ease;"></div>
+            </div>
+          </td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.78rem;color:#3a9a3a;">₹5.29Cr<span style="background:#3a9a3a;color:white;font-size:0.6rem;padding:2px 7px;border-radius:2px;font-family:'DM Mono',monospace;letter-spacing:0.1em;margin-left:8px;">✓ 5CR HIT</span></td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);">100.0%</td>
+        </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Key milestones strip -->
+      <div style="margin-top:20px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+        <div style="background:rgba(201,168,76,0.08);border:1px solid var(--border);border-radius:3px;padding:12px;text-align:center;">
+          <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--muted);margin-bottom:4px;">YEAR 1 END</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--warm);font-weight:700;">₹1.44Cr</div>
+          <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">Month 12</div>
+        </div>
+        <div style="background:rgba(201,168,76,0.08);border:1px solid var(--border);border-radius:3px;padding:12px;text-align:center;">
+          <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--muted);margin-bottom:4px;">HALFWAY</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--warm);font-weight:700;">₹2.56Cr</div>
+          <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">Month 16</div>
+        </div>
+        <div style="background:rgba(201,168,76,0.08);border:1px solid var(--border);border-radius:3px;padding:12px;text-align:center;">
+          <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--muted);margin-bottom:4px;">PEAK MONTH</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--warm);font-weight:700;">₹45L/mo</div>
+          <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">Month 23</div>
+        </div>
+        <div style="background:rgba(80,180,80,0.08);border:1px solid rgba(80,180,80,0.3);border-radius:3px;padding:12px;text-align:center;">
+          <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:#3a9a3a;margin-bottom:4px;">GOAL HIT ✓</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--warm);font-weight:700;">₹5.29Cr</div>
+          <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">Month 23</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cost structure -->
+    <div class="card-grid card-grid-2">
+      <div class="card">
+        <div class="card-label">Cost Structure</div>
+        <h3>Monthly Overheads (in ₹)</h3>
+        <div style="margin-top:12px; display:flex; flex-direction:column; gap:8px; font-size:0.84rem;">
+          <div style="display:flex; justify-content:space-between"><span>Instantly.ai / Smartlead</span><span style="font-family:'DM Mono',monospace">₹8,000–16,000</span></div>
+          <div style="display:flex; justify-content:space-between"><span>LinkedIn Sales Navigator</span><span style="font-family:'DM Mono',monospace">₹8,300</span></div>
+          <div style="display:flex; justify-content:space-between"><span>Apollo.io (email finding)</span><span style="font-family:'DM Mono',monospace">₹4,000–8,000</span></div>
+          <div style="display:flex; justify-content:space-between"><span>Partner / VA (ops)</span><span style="font-family:'DM Mono',monospace">₹10,000–15,000</span></div>
+          <div style="display:flex; justify-content:space-between"><span>Misc (domains, tools)</span><span style="font-family:'DM Mono',monospace">₹4,000</span></div>
+          <div style="display:flex; justify-content:space-between; padding-top:10px; border-top:1px solid var(--border); font-weight:500; color:var(--warm)"><span>Total Costs</span><span style="font-family:'DM Mono',monospace">~₹34,000–51,000/mo</span></div>
+          <div style="display:flex; justify-content:space-between; font-weight:700; color:var(--gold); font-family:'Playfair Display',serif; font-size:1rem"><span>Net on ₹1,25,000 earned</span><span>~74%</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Long-Term Wealth Trajectory</div>
+        <h3>Agency → Whitmore Empire</h3>
+        <div style="margin-top:12px; display:flex; flex-direction:column; gap:12px">
+          <div>
+            <div style="font-size:0.78rem; color:var(--muted); font-family:'DM Mono',monospace; margin-bottom:4px">YEAR 1 — Agency Cash Flow</div>
+            <div class="prog-bar"><div class="prog-fill" style="width:30%"></div></div>
+            <div style="font-size:0.78rem; color:var(--warm); margin-top:4px">₹1.44Cr cumulative · ₹23L/mo run rate</div>
+          </div>
+          <div>
+            <div style="font-size:0.78rem; color:var(--muted); font-family:'DM Mono',monospace; margin-bottom:4px">YEAR 2 — Scale + Car Wave 1</div>
+            <div class="prog-bar"><div class="prog-fill" style="width:55%"></div></div>
+            <div style="font-size:0.78rem; color:var(--warm); margin-top:4px">₹3.61Cr cumulative · ₹37L/mo run rate</div>
+          </div>
+          <div>
+            <div style="font-size:0.78rem; color:var(--muted); font-family:'DM Mono',monospace; margin-bottom:4px">YEAR 3–5 — Villa + Collection</div>
+            <div class="prog-bar"><div class="prog-fill" style="width:75%"></div></div>
+            <div style="font-size:0.78rem; color:var(--warm); margin-top:4px">₹5.29Cr cumulative hit · ₹45L/mo · Goal achieved</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXECUTION CHECKLIST -->
+  <div id="tab-execution" class="tab-content">
+    <div class="section-header">
+      <h2>Execution Checklist</h2>
+      <p>Click each item as you complete it. Progress is saved automatically.</p>
+    </div>
+    <div style="margin-bottom:28px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span id="exec-progress-label" style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--muted);">Loading progress...</span>
+        <button onclick="resetChecklist()" style="font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;padding:5px 12px;border:1px solid var(--border);background:none;color:var(--muted);border-radius:2px;cursor:pointer;">RESET ALL</button>
+      </div>
+      <div style="height:6px;background:rgba(201,168,76,0.12);border-radius:3px;overflow:hidden;">
+        <div id="exec-progress-fill" style="height:100%;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:3px;transition:width 0.6s ease;"></div>
+      </div>
+    </div>
+
+    <div class="card-grid card-grid-2">
+      <div class="card">
+        <div class="card-label">Week 1–2 · Foundation</div>
+        <div id="checklist-1">
+          <div class="checklist-item" onclick="toggleCheck(this)" data-id="task_1">
+            <div class="check-box"></div>
+            <div class="check-label"><strong>Set up outreach domain</strong>Buy a separate sending domain (not your main one). Warm it up for 2–3 weeks using Instantly/Lemwarm.</div>
+          </div>
+          <div class="checklist-item" onclick="toggleCheck(this)" data-id="task_2">
+            <div class="check-box"></div>
+            <div class="check-label"><strong>Subscribe to Apollo.io + LinkedIn Sales Nav</strong>These are your two core lead tools. Don't skip Apollo — it saves hours.</div>
+          </div>
+          <div class="checklist-item" onclick="toggleCheck(this)" data-id="task_3">
+            <div class="check-box"></div>
+            <div class="check-label"><strong>Build first ICP list (200 leads)</strong>Property developers + boutique hotel owners in a specific UK city. Use Sales Nav filters.</div>
+          </div>
+          <div class="checklist-item" onclick="toggleCheck(this)" data-id="task_4">
+            <div class="check-box"></div>
+            <div class="check-label"><strong>Write 5-touch email sequence</strong>Use the script template provided. Personalise subject lines. Keep emails under 80 words each.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Week 3–4 · First Client</div>
+        <div id="checklist-2">
+          <div class="checklist-item" onclick="toggleCheck(this)" data-id="task_5">
+            <div class="check-box"></div>
+            <div class="check-label"><strong>Build a simple case study page</strong>Even a Notion page works. Show the process, the niche, the results you're targeting. Credibility signal.</div>
+          </div>
+          <div class="checklist-item" onclick="toggleCheck(this)" data-id="task_6">
+            <div class="check-box"></div>
+            <div class="check-label"><strong>Do outreach to 20 interior designers</strong>Your clients. DM on Instagram + LinkedIn. Offer the starter package at $1,000 for first month.</div>
+          </div>
+          <div class="checklist-item" onclick="toggleCheck(this)" data-id="task_7">
+            <div class="check-box"></div>
+            <div class="check-label"><strong>Close first client. Get paid upfront.</strong>Collect full month upfront before starting. Issue a simple service agreement. Keep it clean.</div>
+          </div>
+          <div class="checklist-item" onclick="toggleCheck(this)" data-id="task_8">
+            <div class="check-box"></div>
+            <div class="check-label"><strong>Launch first campaign for client</strong>Run email outreach to 200 leads on their behalf. Track open rates, replies, and booking rate.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Month 2–3 · Scale to 3 Clients</div>
+        <div>
+          <div class="checklist-item" onclick="toggleCheck(this)" data-id="task_9">
+            <div class="check-box"></div>
+            <div class="check-label"><strong>Document first client results</strong>Screenshot replies, bookings, any conversions. This becomes your sales asset for the next 4 clients.</div>
+          </div>
+          <div class="checklist-item" onclick="toggleCheck(this)" data-id="task_10">
+            <div class="check-box"></div>
+            <div class="check-label"><strong>Systematise delivery into SOPs</strong>Write down exactly how you build lists, write copy, and send campaigns. Prep to delegate to partner.</div>
+          </div>
+          <div class="checklist-item" onclick="toggleCheck(this)" data-id="task_11">
+            <div class="check-box"></div>
+            <div class="check-label"><strong>Onboard clients 2 & 3</strong>Use case study from client 1. Price at $2,000/month. Collect payment upfront before kickoff call.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Month 4–6 · Systemise + Hit $10K</div>
+        <div>
+          <div class="checklist-item" onclick="toggleCheck(this)" data-id="task_12">
+            <div class="check-box"></div>
+            <div class="check-label"><strong>Delegate campaign ops to partner</strong>Partner runs list-building and email sending. You focus on closing clients and strategy.</div>
+          </div>
+          <div class="checklist-item" onclick="toggleCheck(this)" data-id="task_13">
+            <div class="check-box"></div>
+            <div class="check-label"><strong>Upsell one client to Premium ($3,500)</strong>Offer LinkedIn + IG DM outreach on top of email. Bundle as "multi-channel authority package."</div>
+          </div>
+          <div class="checklist-item" onclick="toggleCheck(this)" data-id="task_14">
+            <div class="check-box"></div>
+            <div class="check-label"><strong>Hit $10K MRR milestone</strong>5 clients. Celebrate. Then set the next milestone: $25K/month by Month 12.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STRESS TEST -->
+  <div id="tab-stress" class="tab-content">
+    <div class="section-header">
+      <h2>Stress Test</h2>
+      <p>Don't protect my feelings. Protect my future. Does this survive reality?</p>
+    </div>
+
+    <div class="stress-box">
+      <h3>5-Point Reality Check — Whitmore Groups Interiors Plan</h3>
+
+      <div class="stress-item">
+        <div class="stress-num">1</div>
+        <div>
+          <p><strong>Devil's Advocate:</strong> Interior designers are notoriously hard to sell to. Many are one-person studios with tiny budgets and no trust in marketing agencies. You'll face "I can't afford this" constantly — even from people who need you.</p>
+          <div class="upgrade-pill">⚡ Counter: Target designers with an existing portfolio and 3+ years in business. They've felt the referral drought. Lead with a performance guarantee — "X booked calls or you don't pay for month 2."</div>
+        </div>
+      </div>
+
+      <div class="stress-item">
+        <div class="stress-num">2</div>
+        <div>
+          <p><strong>Weak Links:</strong> Your results depend on cold email deliverability, which Google and Outlook actively destroy. One spam complaint can kill a domain. If deliverability breaks, your client results tank — and so does retention.</p>
+          <div class="upgrade-pill">⚡ Counter: Always warm up domains for 3 weeks minimum. Run 2–3 sending domains per client. Monitor bounce rates weekly. Use Smartlead's inbox rotation feature.</div>
+        </div>
+      </div>
+
+      <div class="stress-item">
+        <div class="stress-num">3</div>
+        <div>
+          <p><strong>Uncomfortable Question:</strong> Can you actually guarantee results? If you promise 10 booked calls and deliver 3, the client churns and leaves a bad review. Overclaiming to close sales will destroy the business faster than anything else.</p>
+          <div class="upgrade-pill">⚡ Counter: Sell "qualified replies" not "booked calls." Replies you can control. Bookings depend on the designer's sales skills. Frame your guarantee around what you own.</div>
+        </div>
+      </div>
+
+      <div class="stress-item">
+        <div class="stress-num">4</div>
+        <div>
+          <p><strong>Real-World Comparison:</strong> There are already well-funded lead gen agencies targeting creative professionals. Agencies like Magnetic and Leads for Creatives have brand recognition, testimonials, and volume pricing. You're entering a crowded space with zero track record.</p>
+          <div class="upgrade-pill">⚡ Counter: Hyper-niche is your moat. Don't say "lead gen agency." Say "the only outreach agency built specifically for interior designers." Niche positioning beats brand recognition at the $2K price point.</div>
+        </div>
+      </div>
+
+      <div class="stress-item">
+        <div class="stress-num">5</div>
+        <div>
+          <p><strong>Suggested Upgrade:</strong> The current model is pure service. Time-for-money. To scale past $25K/month without burning out, you need a productised offer, templated delivery, and eventually a software or data layer that competitors can't easily copy.</p>
+          <div class="upgrade-pill">⚡ Long-term: Build a proprietary lead database of UK property developers and hospitality buyers segmented by active project signals. License it. That's a defensible asset — not just another agency.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footnote">
+      DON'T PROTECT MY FEELINGS. PROTECT MY FUTURE. MAKE SURE MY IDEAS CAN SURVIVE REALITY — NOT JUST SOUND GOOD IN THEORY. — CEO WHITMORE
+    </div>
+  </div>
+
+  <!-- COLD CALL SCRIPT -->
+  <div id="tab-coldcall" class="tab-content">
+    <div class="section-header">
+      <h2>Cold Call Script</h2>
+      <p>Built for calling luxury builders and developers on behalf of interior designers. Every section is a module — if they interrupt, you know exactly where to pick back up.</p>
+    </div>
+
+    <!-- How to use -->
+    <div style="background:var(--warm);border-left:3px solid var(--gold);border-radius:4px;padding:20px 24px;margin-bottom:28px;">
+      <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.18em;color:var(--gold);margin-bottom:8px;">HOW TO USE THIS SCRIPT</div>
+      <div style="font-size:0.85rem;color:var(--gold-light);line-height:1.9;">
+        ✦ <strong style="color:var(--gold)">Read it out loud 10 times</strong> before your first call. It should feel like your own words, not a script.<br>
+        ✦ <strong style="color:var(--gold)">Never rush.</strong> Luxury developers respect calm confidence. Slow down by 20% from your natural speed.<br>
+        ✦ <strong style="color:var(--gold)">Silence is your friend.</strong> After asking a question — stop talking. Let them fill the gap.<br>
+        ✦ <strong style="color:var(--gold)">You are not begging.</strong> You are offering them access to a designer who elevates their projects. Come from that frame.
+      </div>
+    </div>
+
+    <!-- THE SCRIPT -->
+    <div style="display:flex;flex-direction:column;gap:16px;">
+
+      <!-- MODULE 1: OPENER -->
+      <div class="card" style="border-left:3px solid var(--gold);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+          <div class="card-label" style="margin:0;">Module 1 — The Opener (First 15 seconds)</div>
+          <span class="tag tag-amber">Do NOT skip or shorten this</span>
+        </div>
+        <div class="script-box" style="position:relative;margin-bottom:0;">
+          <div style="position:absolute;top:-10px;left:16px;background:var(--gold);color:var(--warm);font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;padding:2px 8px;font-weight:500;">YOU SAY</div>
+          "Hi, is this <span class="script-placeholder">[Developer's Name]</span>?<br><br>
+          Good <span class="script-placeholder">[morning/afternoon]</span> — my name is <span class="script-placeholder">[Your Name]</span>, I'm calling from Whitmore Groups.<br><br>
+          I'll be straight with you — this is a cold call, and I have something specific I wanted to run by you. Do you have 60 seconds?"
+        </div>
+        <div style="margin-top:14px;font-size:0.8rem;color:var(--muted);line-height:1.7;">
+          <strong style="color:var(--warm);display:block;margin-bottom:4px;">Why this works:</strong>
+          Saying "this is a cold call" disarms them immediately. Most developers respect the honesty and say yes to 60 seconds. Asking permission puts them in control — they're more likely to listen.
+        </div>
+      </div>
+
+      <!-- MODULE 2: THE HOOK -->
+      <div class="card" style="border-left:3px solid var(--gold);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+          <div class="card-label" style="margin:0;">Module 2 — The Hook (The one sentence that keeps them on the line)</div>
+          <span class="tag tag-green">Most critical part</span>
+        </div>
+        <div class="script-box" style="position:relative;margin-bottom:0;">
+          <div style="position:absolute;top:-10px;left:16px;background:var(--gold);color:var(--warm);font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;padding:2px 8px;font-weight:500;">YOU SAY</div>
+          "We work with a highly regarded interior designer who specialises in luxury residential and commercial projects — the kind that adds real value to a developer's portfolio.<br><br>
+          They're looking to take on <span class="script-placeholder">[1–2]</span> more projects this quarter, and based on your work in <span class="script-placeholder">[area/project type]</span>, I thought there could be a strong fit."
+        </div>
+        <div style="margin-top:14px;font-size:0.8rem;color:var(--muted);line-height:1.7;">
+          <strong style="color:var(--warm);display:block;margin-bottom:4px;">Why this works:</strong>
+          You're not selling a service — you're offering access to a scarce resource. "Taking on 1–2 more projects" signals the designer is in demand, not desperate. Mentioning their specific area shows you did homework.
+        </div>
+      </div>
+
+      <!-- MODULE 3: THE BRIDGE -->
+      <div class="card" style="border-left:3px solid var(--gold);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+          <div class="card-label" style="margin:0;">Module 3 — The Bridge (What's in it for them)</div>
+          <span class="tag tag-amber">Keep this under 30 seconds</span>
+        </div>
+        <div class="script-box" style="position:relative;margin-bottom:0;">
+          <div style="position:absolute;top:-10px;left:16px;background:var(--gold);color:var(--warm);font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;padding:2px 8px;font-weight:500;">YOU SAY</div>
+          "What they bring to a project is a finished space that photographs well, sells faster, and justifies a premium price point.<br><br>
+          Developers they've worked with have seen <span class="script-placeholder">[faster sales / stronger valuations / better buyer response]</span> — especially on luxury units where presentation is everything.<br><br>
+          I'm not asking you to commit to anything today. I just want to know — is interior design something you currently factor into your projects?"
+        </div>
+        <div style="margin-top:14px;font-size:0.8rem;color:var(--muted);line-height:1.7;">
+          <strong style="color:var(--warm);display:block;margin-bottom:4px;">Why this works:</strong>
+          You're speaking their language — ROI, speed of sale, price per sq ft. The closing question is soft and diagnostic, not pushy. It opens a conversation rather than forcing a yes or no on the pitch.
+        </div>
+      </div>
+
+      <!-- MODULE 4: OBJECTION HANDLERS -->
+      <div class="card">
+        <div class="card-label" style="margin-bottom:16px;">Module 4 — Objection Handlers</div>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+
+          <div style="border:1px solid var(--border);border-radius:3px;overflow:hidden;">
+            <div style="background:rgba(201,168,76,0.08);padding:10px 16px;font-size:0.82rem;font-weight:500;color:var(--warm);border-bottom:1px solid var(--border);">
+              🚫 "We already have an interior designer."
+            </div>
+            <div style="padding:14px 16px;font-size:0.82rem;color:var(--dark);line-height:1.7;">
+              "That's great — most serious developers do. I'm not here to replace anyone. I'm just curious — are you happy with the turnaround time and the finish quality on your current projects, or is there room for improvement?"<br>
+              <span style="color:var(--muted);font-size:0.76rem;display:block;margin-top:6px;">→ Gets them talking. If they say "yes happy" — ask if they'd be open to a backup for overflow. If they say "there's room" — you're in.</span>
+            </div>
+          </div>
+
+          <div style="border:1px solid var(--border);border-radius:3px;overflow:hidden;">
+            <div style="background:rgba(201,168,76,0.08);padding:10px 16px;font-size:0.82rem;font-weight:500;color:var(--warm);border-bottom:1px solid var(--border);">
+              🚫 "We don't have budget for this right now."
+            </div>
+            <div style="padding:14px 16px;font-size:0.82rem;color:var(--dark);line-height:1.7;">
+              "Completely understand. Just to give you context — there's no upfront cost on your side. Our designer works on a project basis, so it only comes into play when you have a project that needs it. Would it be worth just having a quick conversation so you know the option exists?"<br>
+              <span style="color:var(--muted);font-size:0.76rem;display:block;margin-top:6px;">→ Reframes cost as zero-risk. Plants a seed for future projects.</span>
+            </div>
+          </div>
+
+          <div style="border:1px solid var(--border);border-radius:3px;overflow:hidden;">
+            <div style="background:rgba(201,168,76,0.08);padding:10px 16px;font-size:0.82rem;font-weight:500;color:var(--warm);border-bottom:1px solid var(--border);">
+              🚫 "Send me an email / WhatsApp."
+            </div>
+            <div style="padding:14px 16px;font-size:0.82rem;color:var(--dark);line-height:1.7;">
+              "Of course — I'll send that across right now. Before I do, just so I can tailor what I send — what type of projects are you working on at the moment? Residential, commercial, or a mix?"<br>
+              <span style="color:var(--muted);font-size:0.76rem;display:block;margin-top:6px;">→ Never just say "okay bye." Keep them talking for 30 more seconds. The info you gather makes your follow-up 10× stronger.</span>
+            </div>
+          </div>
+
+          <div style="border:1px solid var(--border);border-radius:3px;overflow:hidden;">
+            <div style="background:rgba(201,168,76,0.08);padding:10px 16px;font-size:0.82rem;font-weight:500;color:var(--warm);border-bottom:1px solid var(--border);">
+              🚫 "I'm busy, call me later."
+            </div>
+            <div style="padding:14px 16px;font-size:0.82rem;color:var(--dark);line-height:1.7;">
+              "Absolutely — I respect your time. Can I confirm a specific time that works? I want to make sure I'm not calling at the wrong moment again."<br>
+              <span style="color:var(--muted);font-size:0.76rem;display:block;margin-top:6px;">→ Gets a committed callback time instead of a vague "later." Always repeat the time back to confirm.</span>
+            </div>
+          </div>
+
+          <div style="border:1px solid var(--border);border-radius:3px;overflow:hidden;">
+            <div style="background:rgba(201,168,76,0.08);padding:10px 16px;font-size:0.82rem;font-weight:500;color:var(--warm);border-bottom:1px solid var(--border);">
+              🚫 "How did you get my number?"
+            </div>
+            <div style="padding:14px 16px;font-size:0.82rem;color:var(--dark);line-height:1.7;">
+              "Your details are publicly listed — I came across your projects online and thought the work was impressive enough to reach out directly. I wouldn't be calling if I didn't think there was a genuine fit here."<br>
+              <span style="color:var(--muted);font-size:0.76rem;display:block;margin-top:6px;">→ Calm, honest, confident. Turns the challenge into a compliment.</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- MODULE 5: THE CLOSE -->
+      <div class="card" style="border-left:3px solid var(--gold);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+          <div class="card-label" style="margin:0;">Module 5 — The Close (Book the meeting, not the deal)</div>
+          <span class="tag tag-green">Goal = 1 meeting booked</span>
+        </div>
+        <div class="script-box" style="position:relative;margin-bottom:0;">
+          <div style="position:absolute;top:-10px;left:16px;background:var(--gold);color:var(--warm);font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;padding:2px 8px;font-weight:500;">YOU SAY</div>
+          "I'd love to set up a quick 15-minute call between you and the designer — no commitment, just a conversation to see if the timing works for your next project.<br><br>
+          Are you free sometime <span class="script-placeholder">[this week / early next week]</span> — even just 15 minutes?"
+        </div>
+        <div style="margin-top:14px;font-size:0.8rem;color:var(--muted);line-height:1.7;">
+          <strong style="color:var(--warm);display:block;margin-bottom:4px;">The golden rule of the close:</strong>
+          You are not closing a deal on this call. You are closing a <em>meeting</em>. One step at a time. A booked 15-minute call is a win. Treat it like one.
+        </div>
+      </div>
+
+      <!-- CALL FLOW CHEAT SHEET -->
+      <div class="card" style="background:var(--warm);">
+        <div class="card-label" style="color:var(--gold);margin-bottom:16px;">Quick Reference — Call Flow Cheat Sheet</div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid rgba(201,168,76,0.3);border-radius:3px;overflow:hidden;">
+          <div style="padding:14px;border-right:1px solid rgba(201,168,76,0.2);text-align:center;">
+            <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);font-weight:700;">1</div>
+            <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--gold-light);margin-top:4px;letter-spacing:0.1em;">OPENER</div>
+            <div style="font-size:0.7rem;color:var(--muted);margin-top:6px;">Name + honest cold call + ask for 60 sec</div>
+          </div>
+          <div style="padding:14px;border-right:1px solid rgba(201,168,76,0.2);text-align:center;">
+            <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);font-weight:700;">2</div>
+            <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--gold-light);margin-top:4px;letter-spacing:0.1em;">HOOK</div>
+            <div style="font-size:0.7rem;color:var(--muted);margin-top:6px;">Designer in demand, fits their project type</div>
+          </div>
+          <div style="padding:14px;border-right:1px solid rgba(201,168,76,0.2);text-align:center;">
+            <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);font-weight:700;">3</div>
+            <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--gold-light);margin-top:4px;letter-spacing:0.1em;">BRIDGE</div>
+            <div style="font-size:0.7rem;color:var(--muted);margin-top:6px;">ROI for them — faster sales, better value</div>
+          </div>
+          <div style="padding:14px;border-right:1px solid rgba(201,168,76,0.2);text-align:center;">
+            <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);font-weight:700;">4</div>
+            <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--gold-light);margin-top:4px;letter-spacing:0.1em;">OBJECTION</div>
+            <div style="font-size:0.7rem;color:var(--muted);margin-top:6px;">Handle calmly, keep them talking</div>
+          </div>
+          <div style="padding:14px;text-align:center;">
+            <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);font-weight:700;">5</div>
+            <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--gold-light);margin-top:4px;letter-spacing:0.1em;">CLOSE</div>
+            <div style="font-size:0.7rem;color:var(--muted);margin-top:6px;">Book 15-min call. Nothing more.</div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px;padding:14px;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);border-radius:3px;">
+          <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--gold);letter-spacing:0.15em;margin-bottom:8px;">THE MINDSET BEFORE EVERY CALL</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1rem;color:var(--gold-light);line-height:1.6;font-style:italic;">
+            "I'm not begging for their business. I'm offering them access to something valuable. If they say no, that's their loss — and my next call is one step closer to yes."
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── Tab navigation ──────────────────────────────────────────────
+  function switchTab(name) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    event.target.classList.add('active');
+    // Notify backend (fire-and-forget)
+    fetch('/api/tab/' + name).catch(() => {});
+  }
+
+  // ── Checklist persistence ───────────────────────────────────────
+  function toggleCheck(el) {
+    el.classList.toggle('done');
+    const id   = el.dataset.id;
+    const done = el.classList.contains('done');
+    // Persist to backend
+    fetch('/api/checklist', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: id, done: done })
+    })
+    .then(r => r.json())
+    .then(() => updateProgress())
+    .catch(() => {});
+  }
+
+  // ── Load saved checklist state on page load ─────────────────────
+  function loadChecklistState() {
+    fetch('/api/checklist')
+      .then(r => r.json())
+      .then(data => {
+        document.querySelectorAll('.checklist-item[data-id]').forEach(el => {
+          if (data[el.dataset.id]) {
+            el.classList.add('done');
+          }
+        });
+        updateProgress();
+      })
+      .catch(() => {});
+  }
+
+  // ── Progress bar in execution tab ──────────────────────────────
+  function updateProgress() {
+    fetch('/api/checklist/stats')
+      .then(r => r.json())
+      .then(stats => {
+        const bar = document.getElementById('exec-progress-fill');
+        const label = document.getElementById('exec-progress-label');
+        if (bar)   bar.style.width = stats.percent + '%';
+        if (label) label.textContent = stats.done + ' of ' + stats.total_tracked + ' tasks completed (' + stats.percent + '%)';
+      })
+      .catch(() => {});
+  }
+
+  // ── Reset checklist ────────────────────────────────────────────
+  function resetChecklist() {
+    if (!confirm('Reset all checklist items?')) return;
+    fetch('/api/checklist/reset', { method: 'POST' })
+      .then(() => {
+        document.querySelectorAll('.checklist-item').forEach(el => el.classList.remove('done'));
+        updateProgress();
+      });
+  }
+
+  // ── Animate progress bars ───────────────────────────────────────
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.querySelectorAll('.prog-fill').forEach(bar => {
+        const w = bar.style.width;
+        bar.style.width = '0';
+        setTimeout(() => { bar.style.width = w; }, 100);
+      });
+    }, 300);
+    loadChecklistState();
+  });
+</script>
+</body>
+</html>
