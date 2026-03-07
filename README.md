@@ -4,6 +4,12 @@ A Flask-powered interactive business plan website.
 
 ---
 
+## Preview
+
+![Dashboard Preview](screenshots/dashboard.png)
+
+---
+
 ## Features
 
 - Interactive business dashboard
