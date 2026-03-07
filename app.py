@@ -6,6 +6,8 @@ app = Flask(__name__)
 
 DATA_FILE = os.path.join(os.path.dirname(__file__), 'data', 'checklist.json')
 
+click_count = 0
+
 # ── helpers ──────────────────────────────────────────────────────────────────
 
 def load_checklist():
@@ -42,12 +44,19 @@ def update_checklist():
     Expects JSON body: { "id": "item_id", "done": true/false }
     """
     body = request.get_json(silent=True)
+
+    global click_count
+    click_count += 1
+
     if not body or 'id' not in body:
         return jsonify({'error': 'Missing item id'}), 400
 
     checklist = load_checklist()
     item_id = body['id']
     checklist[item_id] = bool(body.get('done', False))
+
+    print(f"[LOG] Checklist updated: {item_id} -> {checklist[item_id]}")
+
     save_checklist(checklist)
 
     return jsonify({'success': True, 'id': item_id, 'done': checklist[item_id]})
@@ -86,6 +95,15 @@ def get_tab(tab_name):
     if tab_name not in valid_tabs:
         return jsonify({'error': 'Unknown tab'}), 404
     return jsonify({'tab': tab_name, 'status': 'ok'})
+
+@app.route('/health')
+def health():
+    """Simple health check endpoint."""
+    return jsonify({"status": "server running"})
+
+@app.route('/api/clicks')
+def clicks():
+    return jsonify({"clicks": click_count})
 
 
 # ── run ───────────────────────────────────────────────────────────────────────

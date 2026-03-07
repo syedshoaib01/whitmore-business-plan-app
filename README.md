@@ -4,6 +4,16 @@ A Flask-powered interactive business plan website.
 
 ---
 
+## Features
+
+- Interactive business dashboard
+- Tab-based navigation
+- Execution checklist with saved progress
+- Flask backend API
+- JSON-based data storage
+
+---
+
 ## Setup (one time)
 
 Make sure Python 3.8+ is installed, then run:
