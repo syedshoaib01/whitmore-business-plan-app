@@ -108,16 +108,13 @@ def clicks():
 
 # ── run ───────────────────────────────────────────────────────────────────────
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
-    print("\n  ╔══════════════════════════════════════╗")
-    print("  ║   Whitmore Groups — Business Plan    ║")
-    print("  ║   Flask Server                       ║")
-    print("  ╠══════════════════════════════════════╣")
-    print("  ║   http://127.0.0.1:5000              ║")
-    print("  ╚══════════════════════════════════════╝\n")
+
+    port = int(os.environ.get("PORT", 5000))
+
     app.run(
-    host="0.0.0.0",
-    port=int(os.environ.get("PORT", 5000)),
-    debug=False
-)
+        host="0.0.0.0",
+        port=port,
+        debug=False
+    )
